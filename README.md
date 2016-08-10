@@ -1,3 +1,3 @@
 # Chat
 
-Node.js + Express + Socket.io
+Chat application based on Node.js, Express & Socket.io 
