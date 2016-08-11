@@ -13,7 +13,22 @@ app.get("/", function(req, res){
 
 io.on("connection", function(socket){
     console.log("user connected.");
+
+    socket.on("message", function(msg){
+        console.log(socket.id + " message: " + msg);
+        let reMsg = {
+            name : "Hugo",
+            time : getTime(),
+            msg : msg
+        }
+        io.emit("message", reMsg);
+    });
 });
 
 server.listen(3000);
 console.log("Listening on http://*:3000");
+
+function getTime(){
+    let date = new Date();
+    return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+}
