@@ -16,7 +16,6 @@ app.controller("msgListCtrl", function($scope){
     })
 
     socket.on("message", function(msg){
-        let s = angular.element("#body").scope();
         let $elem = angular.element('[ng-controller=msgListCtrl]');
         // alert($elem.attr("id"));
         let $scope = $elem.scope();
@@ -27,5 +26,17 @@ app.controller("msgListCtrl", function($scope){
         });
         $scope.$apply();
     });
+
+    socket.on("system", function(msg){
+        let $elem = angular.element('[ng-controller=msgListCtrl]');
+        // alert($elem.attr("id"));
+        let $scope = $elem.scope();
+        $scope.users.push({
+            name : msg.name,
+            time : msg.time,
+            msg : msg.msg
+        });
+        $scope.$apply();
+    })
 
 });

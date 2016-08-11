@@ -14,14 +14,31 @@ app.get("/", function(req, res){
 io.on("connection", function(socket){
     console.log("user connected.");
 
+    let client = {
+        socket : socket,
+        name : null
+    }
+
     socket.on("message", function(msg){
-        console.log(socket.id + " message: " + msg);
-        let reMsg = {
-            name : "Hugo",
-            time : getTime(),
-            msg : msg
+        if(client.name == null){
+            client.name = msg;
+
+            let reMsg = {
+                name : "System",
+                time : getTime(),
+                msg : "Welcome!"
+            }
+            socket.emit("system", reMsg);
+        }else{
+            console.log(socket.id + " message: " + msg);
+            let reMsg = {
+                name : "Hugo",
+                time : getTime(),
+                msg : msg
+            }
+            io.emit("message", reMsg);
         }
-        io.emit("message", reMsg);
+        
     });
 });
 
