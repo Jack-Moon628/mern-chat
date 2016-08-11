@@ -30,9 +30,9 @@ io.on("connection", function(socket){
             }
             socket.emit("system", reMsg);
         }else{
-            console.log(socket.id + " message: " + msg);
+            console.log(client.name + "'s message: " + msg);
             let reMsg = {
-                name : "Hugo",
+                name : client.name,
                 time : getTime(),
                 msg : msg
             }
