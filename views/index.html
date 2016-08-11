@@ -22,7 +22,7 @@
             <main>
                 <div class="row">
                     <div class="col m8">
-                        <div class="message-list" style="margin-bottom: 40px; height: 550px; overflow: auto;">
+                        <div class="message-list" style="margin-bottom: 50px; height: 550px; overflow: auto;">
                             <ul id="msg-list">
                                 <li>
                                     <div style="margin-bottom: 20px;">
@@ -151,5 +151,10 @@
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+    </script>
 </body>
 </html>
