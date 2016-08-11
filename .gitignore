@@ -2,6 +2,6 @@
 /typings/
 
 #node_modules
-/node_modules
+/node_modules/
 
-jsconfig.json
+/jsconfig.json
