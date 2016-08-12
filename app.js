@@ -57,6 +57,9 @@ io.on("connection", function(socket){
     });
 
     socket.on('disconnect', function(){
+        connectedUsers.splice(connectedUsers.indexOf(client.name));
+        io.emit("msg userlist", connectedUsers);
+
         let bcMsg = {
             name : client.name,
             msg : "leave Chatroom",
