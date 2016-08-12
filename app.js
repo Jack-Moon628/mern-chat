@@ -11,6 +11,9 @@ app.get("/", function(req, res){
     res.sendFile("index.html", { root : "./views" });
 });
 
+// connected users' list
+let connectedUsers = [];
+
 io.on("connection", function(socket){
     console.log("user connected.");
 
@@ -18,6 +21,9 @@ io.on("connection", function(socket){
         socket : socket,
         name : null
     }
+
+    // send user list online
+    socket.emit("msg userlist", connectedUsers);
 
     socket.on("message", function(msg){
         if(client.name == null){
@@ -28,6 +34,14 @@ io.on("connection", function(socket){
                 msg : "enter Chatroom",
                 type : "system"
             }
+
+            connectedUsers.push({
+                name: client.name,
+                time: getTime()
+            });
+            // send user list online
+            io.emit("msg userlist", connectedUsers);
+
             io.emit("message", bcMsg);
         }else{
             console.log(client.name + "'s message: " + msg);

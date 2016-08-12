@@ -44,7 +44,7 @@
                             </ul>
                         </div>
 
-                        <div class="row" style="margin-top: 40px;">
+                        <div class="row">
                             <div class="col m2 right-align" style="margin-top: 27px">
                                 <span id="username">Your name</span>:
                             </div>
@@ -60,8 +60,16 @@
                         </div>
                     </div>
 
-                    <div class="col m4">
-
+                    <div class="col m4" style="padding: 0 30px;" ng-controller="userOnlineCtrl">
+                        <p style="font-size: 1.3em; font-weight: 300;">Who's online?</p>
+                        <div ng-repeat="user in userOnlineList">
+                            <span class="hoverable chip" style="margin-bottom: 10px; cursor: pointer;">
+                                <img src="img/khalil.png" alt="">
+                                <span class="blue-text text-lighten-1">{{user.name}}</span>
+                                <span class="red-text text-lighten-1">@</span>
+                                <span class="green-text text-lighten-1">{{user.time}}</span>
+                            </span>
+                        </div>
                     </div>
                 </div>
 

@@ -6,6 +6,10 @@ app.controller("msgListCtrl", function($scope){
     $scope.users = [];
 });
 
+app.controller("userOnlineCtrl", function($scope){
+    $scope.userOnlineList = [];
+});
+
 //socket.io
 let socket = io();
 
@@ -32,36 +36,26 @@ function sendMsg($inputElem){
     }else{
         let newMsg = {
             name : username,
-            time : '2014',
+            time : getTime(),
             msg : msg,
             type : "msg",
             align : "right-align"
         }
-
         msgListAdd(newMsg);
-
-        // let $elem = angular.element('[ng-controller=msgListCtrl]');
-        // let $scope = $elem.scope();
-        // $scope.users.push(newMsg);
-        // $scope.$apply();
-
-        // // scroll to the end of message list
-        // let liElem = $("#msg-list").children().last().get(0);
-        // liElem.scrollIntoView({block: "end", behavior: "smooth"});
     }
 }
 
 socket.on("message", function(msg){
-    // let $elem = angular.element('[ng-controller=msgListCtrl]');
-    // let $scope = $elem.scope();
-    // $scope.users.push(msg);
-    // $scope.$apply();
-
-    // // scroll to the end of message list
-    // let liElem = $("#msg-list").children().last().get(0);
-    // liElem.scrollIntoView({block: "end", behavior: "smooth"});
     msgListAdd(msg);
 });
+
+socket.on("msg userlist", function(msg){
+    let $elem = angular.element('[ng-controller=userOnlineCtrl]');
+    let $scope = $elem.scope();
+
+    $scope.userOnlineList = msg;
+    $scope.$apply();
+})
 
 function msgListAdd(msg){
     let $elem = angular.element('[ng-controller=msgListCtrl]');
@@ -72,4 +66,9 @@ function msgListAdd(msg){
     // scroll to the end of message list
     let liElem = $("#msg-list").children().last().get(0);
     liElem.scrollIntoView({block: "end", behavior: "smooth"});
+}
+
+function getTime(){
+    let date = new Date();
+    return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 }
