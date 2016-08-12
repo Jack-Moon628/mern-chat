@@ -25,6 +25,10 @@ app.controller("msgListCtrl", function($scope){
             msg : msg.msg
         });
         $scope.$apply();
+
+        // scroll to the end of message list
+        let liElem = $("#msg-list").children().last().get(0);
+        liElem.scrollIntoView({block: "end", behavior: "smooth"});
     });
 
     socket.on("system", function(msg){

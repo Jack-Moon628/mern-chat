@@ -26,7 +26,7 @@ io.on("connection", function(socket){
             let reMsg = {
                 name : "System",
                 time : getTime(),
-                msg : "Welcome!"
+                msg : "Welcome! " + client.name
             }
             socket.emit("system", reMsg);
         }else{
