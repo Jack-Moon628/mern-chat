@@ -26,7 +26,6 @@ function sendMsg($inputElem){
 
 socket.on("message", function(msg){
     let $elem = angular.element('[ng-controller=msgListCtrl]');
-    // alert($elem.attr("id"));
     let $scope = $elem.scope();
     $scope.users.push({
         name : msg.name,
@@ -42,7 +41,6 @@ socket.on("message", function(msg){
 
 socket.on("system", function(msg){
     let $elem = angular.element('[ng-controller=msgListCtrl]');
-    // alert($elem.attr("id"));
     let $scope = $elem.scope();
     $scope.users.push({
         name : msg.name,

@@ -22,7 +22,7 @@
             <main>
                 <div class="row">
                     <div class="col m8">
-                        <div class="message-list" style="margin-bottom: 50px; height: 550px; overflow: auto;">
+                        <div id="msg-list-container" class="message-list" style="margin-bottom: 50px; height: 550px; overflow: auto;">
                             <ul id="msg-list" ng-controller="msgListCtrl">
                                 <li ng-repeat="user in users" ng-model="users">
                                     <div style="margin-bottom: 20px;">
