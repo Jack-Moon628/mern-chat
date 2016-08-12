@@ -22,7 +22,7 @@
             <main>
                 <div class="row">
                     <div class="col m8">
-                        <div id="msg-list-container" class="message-list" style="margin-bottom: 50px; height: 550px; overflow: auto;">
+                        <div id="msg-list-container" class="message-list" style="margin-bottom: 50px; height: 550px; overflow-y: auto; break-word:break-all;">
                             <ul id="msg-list" ng-controller="msgListCtrl">
                                 <li ng-repeat="user in users" ng-model="users">
                                     <div style="margin-bottom: 20px;">
@@ -32,7 +32,7 @@
                                             <span class="red-text text-lighten-1">@</span>
                                             <span class="green-text text-lighten-1">{{user.time}}</span>
                                         </span>
-                                        <h5 style="font-weight: 300; margin-left: 39px;">{{user.msg}}</h5>
+                                        <p style="font-size: 1.64rem; line-height: 110%;margin: 0.82rem 0 0.656rem 0; font-weight: 300; margin-left: 39px;">{{user.msg}}</p>
                                     </div>
                                 </li>
                             </ul>
@@ -40,7 +40,7 @@
 
                         <div class="row" style="margin-top: 40px;">
                             <div class="col m2 right-align" style="margin-top: 27px">
-                                <span id="username">{{'Your name' || username}}:</span>
+                                <span id="username">Your name</span>:
                             </div>
                             <div class="col m7">
                                 <div class="input-field">

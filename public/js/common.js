@@ -1,3 +1,5 @@
+let username = null;
+
 // angular
 let app = angular.module("app", []);
 app.controller("msgListCtrl", function($scope){
@@ -20,6 +22,10 @@ $("#msg-sendbtn").click(function(event){
 function sendMsg($inputElem){
     let msg = $inputElem.val();
     if(msg == "") return;
+    if(username == null){
+        username = msg;
+        $("#username").text(msg);
+    }
     socket.send(msg);
     $inputElem.val("");
 }
