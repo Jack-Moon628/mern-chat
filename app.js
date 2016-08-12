@@ -23,23 +23,33 @@ io.on("connection", function(socket){
         if(client.name == null){
             client.name = msg;
 
-            let reMsg = {
-                name : "System",
-                time : getTime(),
-                msg : "Welcome! " + client.name
+            let bcMsg = {
+                name : client.name,
+                msg : "enter Chatroom",
+                type : "system"
             }
-            socket.emit("system", reMsg);
+            io.emit("message", bcMsg);
         }else{
             console.log(client.name + "'s message: " + msg);
             let reMsg = {
                 name : client.name,
                 time : getTime(),
-                msg : msg
+                msg : msg,
+                type : "msg"
             }
             io.emit("message", reMsg);
         }
         
     });
+
+    socket.on('disconnect', function(){
+        let bcMsg = {
+            name : client.name,
+            msg : "leave Chatroom",
+            type : "system"
+        }
+        io.emit("message", bcMsg);
+    })
 });
 
 server.listen(3000);

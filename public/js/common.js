@@ -33,25 +33,11 @@ function sendMsg($inputElem){
 socket.on("message", function(msg){
     let $elem = angular.element('[ng-controller=msgListCtrl]');
     let $scope = $elem.scope();
-    $scope.users.push({
-        name : msg.name,
-        time : msg.time,
-        msg : msg.msg
-    });
+    $scope.users.push(msg);
     $scope.$apply();
 
     // scroll to the end of message list
     let liElem = $("#msg-list").children().last().get(0);
     liElem.scrollIntoView({block: "end", behavior: "smooth"});
+    
 });
-
-socket.on("system", function(msg){
-    let $elem = angular.element('[ng-controller=msgListCtrl]');
-    let $scope = $elem.scope();
-    $scope.users.push({
-        name : msg.name,
-        time : msg.time,
-        msg : msg.msg
-    });
-    $scope.$apply();
-})
