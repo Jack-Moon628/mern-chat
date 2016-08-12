@@ -11,6 +11,10 @@ app.get("/", function(req, res){
     res.sendFile("index.html", { root : "./views" });
 });
 
+app.get("/avator/", function(req, res){
+    res.send("heihei.");
+});
+
 // connected/online users' list
 let connectedUsers = [];
 

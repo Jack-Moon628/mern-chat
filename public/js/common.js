@@ -6,8 +6,12 @@ app.controller("msgListCtrl", function($scope){
     $scope.users = [];
 });
 
-app.controller("userOnlineCtrl", function($scope){
+app.controller("userOnlineCtrl", function($scope, $http){
     $scope.userOnlineList = [];
+
+    $http.get("/avator/").success(function(res){
+        alert(res);
+    });
 });
 
 //socket.io
