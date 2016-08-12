@@ -11,7 +11,7 @@ app.get("/", function(req, res){
     res.sendFile("index.html", { root : "./views" });
 });
 
-// connected users' list
+// connected/online users' list
 let connectedUsers = [];
 
 io.on("connection", function(socket){
@@ -31,8 +31,9 @@ io.on("connection", function(socket){
 
             let bcMsg = {
                 name : client.name,
-                msg : "enter Chatroom",
-                type : "system"
+                msg : "enter",
+                type : "system",
+                status : "green-text"
             }
 
             connectedUsers.push({
@@ -57,13 +58,15 @@ io.on("connection", function(socket){
     });
 
     socket.on('disconnect', function(){
+        // update online userlist
         connectedUsers.splice(connectedUsers.indexOf(client.name));
         io.emit("msg userlist", connectedUsers);
 
         let bcMsg = {
             name : client.name,
-            msg : "leave Chatroom",
-            type : "system"
+            msg : "leave",
+            type : "system",
+            status : "red-text"
         }
         console.log(client.name + " disconnected.");
         io.emit("message", bcMsg);
