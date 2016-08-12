@@ -37,7 +37,7 @@ io.on("connection", function(socket){
                 msg : msg,
                 type : "msg"
             }
-            io.emit("message", reMsg);
+            socket.broadcast.emit("message", reMsg);
         }
         
     });
@@ -48,6 +48,7 @@ io.on("connection", function(socket){
             msg : "leave Chatroom",
             type : "system"
         }
+        console.log(client.name + " disconnected.");
         io.emit("message", bcMsg);
     })
 });
