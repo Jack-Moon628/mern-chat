@@ -2,17 +2,20 @@ let express = require("express");
 let app = express();
 let server = require("http").createServer(app);
 let io = require("socket.io")(server);
+let fs = require("fs");
 
 
 app.use(express.static("public"));
 app.set("views", __dirname + "/views");
+app.set("public", __dirname + "/public");
 
 app.get("/", function(req, res){
     res.sendFile("index.html", { root : "./views" });
 });
 
 app.get("/avator/", function(req, res){
-    res.send("heihei.");
+    let avatorList = fs.readdirSync(app.get("public") + "/img/");
+    res.send(avatorList);
 });
 
 // connected/online users' list

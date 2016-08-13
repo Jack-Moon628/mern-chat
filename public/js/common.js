@@ -2,6 +2,10 @@ let username = null;
 
 // angular
 let app = angular.module("app", []);
+app.controller("appCtrl", function($scope){
+    $scope.avatorUrl = "img/3.png";
+})
+
 app.controller("msgListCtrl", function($scope){
     $scope.users = [];
 });
@@ -10,8 +14,20 @@ app.controller("userOnlineCtrl", function($scope, $http){
     $scope.userOnlineList = [];
 
     $http.get("/avator/").success(function(res){
-        alert(res);
+        let $scope = angular.element("[ng-controller=avatorCtrl]").scope();
+        $scope.avatorList = res;
     });
+});
+
+app.controller("avatorCtrl", function($scope){
+    $scope.avatorList = [];
+
+    $scope.selectAvator = function($event){
+        let $img = $($event.target);
+
+        let $sc = angular.element("[ng-controller=appCtrl]").scope();
+        $sc.avatorUrl = $img.attr("src");
+    }
 });
 
 //socket.io
