@@ -42,6 +42,18 @@ $("#msg-sendbtn").click(function(event){
     sendMsg($("#msg-input"));
 });
 
+socket.on("message", function(msg){
+    msgListAdd(msg);
+});
+
+socket.on("msg userlist", function(msg){
+    let $elem = angular.element('[ng-controller=userOnlineCtrl]');
+    let $scope = $elem.scope();
+
+    $scope.userOnlineList = msg;
+    $scope.$apply();
+})
+
 function sendMsg($inputElem){
     let msg = $inputElem.val();
     if(msg == "") return;
@@ -63,18 +75,6 @@ function sendMsg($inputElem){
         msgListAdd(newMsg);
     }
 }
-
-socket.on("message", function(msg){
-    msgListAdd(msg);
-});
-
-socket.on("msg userlist", function(msg){
-    let $elem = angular.element('[ng-controller=userOnlineCtrl]');
-    let $scope = $elem.scope();
-
-    $scope.userOnlineList = msg;
-    $scope.$apply();
-})
 
 function msgListAdd(msg){
     let $elem = angular.element('[ng-controller=msgListCtrl]');
