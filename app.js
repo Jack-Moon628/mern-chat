@@ -34,24 +34,43 @@ io.on("connection", function(socket){
 
     socket.on("message", function(obj){
         if(client.name == null){
-            client.name = obj.msg;
+            // check if name exist
+            let index = getIndex(connectedUsers, "name", obj.msg);
+            if(index == -1){
+                client.name = obj.msg;
 
-            let bcMsg = {
-                name : client.name,
-                msg : "enter",
-                type : "SYSTEM",
-                status : "green-text"
+                let bcMsg = {
+                    name : client.name,
+                    action : "enter",
+                    actionObj : "Chatroom",
+                    type : "SYSTEM",
+                    status : "green-text"
+                }
+
+                connectedUsers.push({
+                    name: client.name,
+                    avator: obj.avator,
+                    time: getTime()
+                });
+                // send user list online
+                io.emit("msg userlist", connectedUsers);
+
+                io.emit("message", bcMsg);
+
+                console.log("new user: " + client.name);
+            }else{
+                let bcMsg = {
+                    name : 'Name: "' + obj.msg + '"',
+                    action : "already",
+                    actionObj : "EXISTED",
+                    type : "SYSTEM",
+                    status : "red-text",
+                    repeat : 1
+                }
+
+                socket.emit("message", bcMsg);
             }
 
-            connectedUsers.push({
-                name: client.name,
-                avator: obj.avator,
-                time: getTime()
-            });
-            // send user list online
-            io.emit("msg userlist", connectedUsers);
-
-            io.emit("message", bcMsg);
         }else{
             console.log(client.name + "'s message: " + obj.msg);
             let reMsg = {
@@ -78,14 +97,15 @@ io.on("connection", function(socket){
         if(client.name != null){
             let bcMsg = {
                 name : client.name,
-                msg : "leave",
+                action : "leave",
+                actionObj : "Chatroom",
                 type : "SYSTEM",
                 status : "red-text"
             }
             console.log(client.name + " disconnected.");
 
             connectedUsers.splice(getIndex(connectedUsers, "name", client.name));
-            
+
             io.emit("message", bcMsg);
             io.emit("online user update", connectedUsers);
         }
@@ -107,4 +127,5 @@ function getIndex(arr, key, val){
             return i;
         }
     }
+    return -1;
 }

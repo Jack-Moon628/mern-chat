@@ -50,6 +50,16 @@ $("#msg-sendbtn").click(function(event){
 
 socket.on("message", function(msg){
     msgListAdd(msg);
+
+    if(msg.repeat == 1){
+        let $sc = angular.element("[ng-controller=appCtrl]").scope();
+        let currentUserInfo = $sc.currentUserInfo;
+
+        currentUserInfo.name = null;
+        $("#username").text("Your name:");
+
+        $sc.$apply();
+    }
 });
 
 socket.on("msg userlist", function(msg){
@@ -70,7 +80,8 @@ function sendMsg($inputElem){
     let msg = $inputElem.val();
     if(msg == "") return;
 
-    let currentUserInfo = angular.element("[ng-controller=appCtrl]").scope().currentUserInfo;
+    let $sc = angular.element("[ng-controller=appCtrl]").scope();
+    let currentUserInfo = $sc.currentUserInfo;
 
     let obj = {
         msg: msg,
@@ -82,6 +93,7 @@ function sendMsg($inputElem){
     if(currentUserInfo.name == null){
         currentUserInfo.name = msg;
         $("#username").text(msg);
+        $sc.$apply();
     }else{
         let newMsg = {
             name : currentUserInfo.name,
