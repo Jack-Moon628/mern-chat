@@ -66,20 +66,29 @@ io.on("connection", function(socket){
         
     });
 
+    socket.on("change avator", function(imgUrl){
+        let index = getIndex(connectedUsers, "name", client.name);
+        let currentClient = connectedUsers[index];
+        currentClient.avator = imgUrl;
+
+        io.emit("online user update", connectedUsers);
+    });
+
     socket.on('disconnect', function(){
-        // update online userlist
-        io.emit("msg userlist", connectedUsers);
+        if(client.name != null){
+            let bcMsg = {
+                name : client.name,
+                msg : "leave",
+                type : "SYSTEM",
+                status : "red-text"
+            }
+            console.log(client.name + " disconnected.");
 
-        let bcMsg = {
-            name : client.name,
-            msg : "leave",
-            type : "SYSTEM",
-            status : "red-text"
+            connectedUsers.splice(getIndex(connectedUsers, "name", client.name));
+            
+            io.emit("message", bcMsg);
+            io.emit("online user update", connectedUsers);
         }
-        console.log(client.name + " disconnected.");
-        io.emit("message", bcMsg);
-
-        connectedUsers.splice(connectedUsers.indexOf(client.name));
     })
 });
 
@@ -89,4 +98,13 @@ console.log("Listening on http://*:3000");
 function getTime(){
     let date = new Date();
     return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+}
+
+function getIndex(arr, key, val){
+    for (var i = 0; i < arr.length; i++) {
+        var e = arr[i];
+        if(e[key] == val){
+            return i;
+        }
+    }
 }

@@ -27,6 +27,11 @@ app.controller("avatorCtrl", function($scope, $http){
 
         let $sc = angular.element("[ng-controller=appCtrl]").scope();
         $sc.currentUserInfo.avator = $img.attr("src");
+
+        if($sc.currentUserInfo.name != null){
+            // broadcast new avator
+            socket.emit("change avator", $sc.currentUserInfo.avator);
+        }
     }
 });
 
@@ -52,6 +57,12 @@ socket.on("msg userlist", function(msg){
     let $scope = $elem.scope();
 
     $scope.userOnlineList = msg;
+    $scope.$apply();
+});
+
+socket.on("online user update", function(res){
+    let $scope = angular.element("[ng-controller=userOnlineCtrl]").scope();
+    $scope.userOnlineList = res;
     $scope.$apply();
 })
 
