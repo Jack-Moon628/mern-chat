@@ -1,8 +1,10 @@
-let username = null;
-
 // angular
 let app = angular.module("app", []);
 app.controller("appCtrl", function($scope){
+    $scope.currentUserInfo = {
+        name: null,
+        avator: "img/3.png"
+    }
     $scope.avatorUrl = "img/3.png";
 })
 
@@ -61,12 +63,14 @@ function sendMsg($inputElem){
     socket.send(msg);
     $inputElem.val("");
 
-    if(username == null){
-        username = msg;
+    let currentUserInfo = angular.element("[ng-controller=appCtrl]").scope().currentUserInfo;
+
+    if(currentUserInfo.name == null){
+        currentUserInfo.name = msg;
         $("#username").text(msg);
     }else{
         let newMsg = {
-            name : username,
+            name : currentUserInfo.name,
             time : getTime(),
             msg : msg,
             type : "msg",
