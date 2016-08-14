@@ -32,14 +32,14 @@ io.on("connection", function(socket){
     // send user list online
     socket.emit("msg userlist", connectedUsers);
 
-    socket.on("message", function(msg){
+    socket.on("message", function(obj){
         if(client.name == null){
-            client.name = msg;
+            client.name = obj.msg;
 
             let bcMsg = {
                 name : client.name,
                 msg : "enter",
-                type : "system",
+                type : "SYSTEM",
                 status : "green-text"
             }
 
@@ -52,12 +52,13 @@ io.on("connection", function(socket){
 
             io.emit("message", bcMsg);
         }else{
-            console.log(client.name + "'s message: " + msg);
+            console.log(client.name + "'s message: " + obj.msg);
             let reMsg = {
                 name : client.name,
                 time : getTime(),
-                msg : msg,
-                type : "msg"
+                msg : obj.msg,
+                avator: obj.avator,
+                type : "BROADCAST_USER"
             }
             socket.broadcast.emit("message", reMsg);
         }
@@ -72,7 +73,7 @@ io.on("connection", function(socket){
         let bcMsg = {
             name : client.name,
             msg : "leave",
-            type : "system",
+            type : "SYSTEM",
             status : "red-text"
         }
         console.log(client.name + " disconnected.");

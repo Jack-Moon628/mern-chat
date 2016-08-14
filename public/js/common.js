@@ -59,10 +59,14 @@ function sendMsg($inputElem){
     let msg = $inputElem.val();
     if(msg == "") return;
 
-    socket.send(msg);
-    $inputElem.val("");
-
     let currentUserInfo = angular.element("[ng-controller=appCtrl]").scope().currentUserInfo;
+
+    let obj = {
+        msg: msg,
+        avator: currentUserInfo.avator 
+    }
+    socket.send(obj);
+    $inputElem.val("");
 
     if(currentUserInfo.name == null){
         currentUserInfo.name = msg;
@@ -72,8 +76,7 @@ function sendMsg($inputElem){
             name : currentUserInfo.name,
             time : getTime(),
             msg : msg,
-            type : "msg",
-            align : "right-align"
+            type : "CURRENT_USER",
         }
         msgListAdd(newMsg);
     }
