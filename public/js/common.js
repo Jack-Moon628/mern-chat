@@ -3,7 +3,7 @@ let app = angular.module("app", []);
 app.controller("appCtrl", function($scope){
     $scope.currentUserInfo = {
         name: null,
-        avator: "img/3.png"
+        avator: ""
     }
 })
 
@@ -20,6 +20,9 @@ app.controller("avatorCtrl", function($scope, $http){
 
     $http.get("/avator/").success(function(res){
         $scope.avatorList = res;
+
+        let $sc = angular.element("[ng-controller=appCtrl]").scope();
+        $sc.currentUserInfo.avator = "img/" + Math.floor(Math.random() * 8 + 1) + ".png";
     });
 
     $scope.selectAvator = function($event){
