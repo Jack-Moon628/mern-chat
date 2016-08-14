@@ -10,17 +10,16 @@ app.controller("msgListCtrl", function($scope){
     $scope.users = [];
 });
 
-app.controller("userOnlineCtrl", function($scope, $http){
+app.controller("userOnlineCtrl", function($scope){
     $scope.userOnlineList = [];
-
-    $http.get("/avator/").success(function(res){
-        let $scope = angular.element("[ng-controller=avatorCtrl]").scope();
-        $scope.avatorList = res;
-    });
 });
 
-app.controller("avatorCtrl", function($scope){
+app.controller("avatorCtrl", function($scope, $http){
     $scope.avatorList = [];
+
+    $http.get("/avator/").success(function(res){
+        $scope.avatorList = res;
+    });
 
     $scope.selectAvator = function($event){
         let $img = $($event.target);
