@@ -45,6 +45,7 @@ io.on("connection", function(socket){
 
             connectedUsers.push({
                 name: client.name,
+                avator: obj.avator,
                 time: getTime()
             });
             // send user list online
@@ -67,7 +68,6 @@ io.on("connection", function(socket){
 
     socket.on('disconnect', function(){
         // update online userlist
-        connectedUsers.splice(connectedUsers.indexOf(client.name));
         io.emit("msg userlist", connectedUsers);
 
         let bcMsg = {
@@ -78,6 +78,8 @@ io.on("connection", function(socket){
         }
         console.log(client.name + " disconnected.");
         io.emit("message", bcMsg);
+
+        connectedUsers.splice(connectedUsers.indexOf(client.name));
     })
 });
 
