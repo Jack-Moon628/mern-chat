@@ -5,7 +5,6 @@ app.controller("appCtrl", function($scope){
         name: null,
         avator: "img/3.png"
     }
-    $scope.avatorUrl = "img/3.png";
 })
 
 app.controller("msgListCtrl", function($scope){
@@ -27,7 +26,7 @@ app.controller("avatorCtrl", function($scope, $http){
         let $img = $($event.target);
 
         let $sc = angular.element("[ng-controller=appCtrl]").scope();
-        $sc.avatorUrl = $img.attr("src");
+        $sc.currentUserInfo.avator = $img.attr("src");
     }
 });
 

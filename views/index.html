@@ -27,7 +27,7 @@
                                 <li ng-repeat="user in users" ng-model="users" ng-switch="user.type">
                                     <div class="{{user.align}}" style="margin-bottom: 20px; margin-right: 20px;" ng-switch-when="msg">
                                         <span class="chip hoverable" style="cursor: pointer;">
-                                            <img src="{{avatorUrl}}" alt="">
+                                            <img src="{{ currentUserInfo.avator }}" alt="">
                                             <span class="blue-text text-lighten-1">{{user.name}}</span>
                                             <span class="red-text text-lighten-1">@</span>
                                             <span class="green-text text-lighten-1">{{user.time}}</span>
@@ -65,7 +65,7 @@
                         <div>
                             <p style="font-size: 1.3em; font-weight: 300;">Your avator</p>
                             <a href="#avatorList" class="modal-trigger">
-                                <img ng-click="chooseAvator($event)" src="{{ avatorUrl }}" 
+                                <img ng-click="chooseAvator($event)" src="{{ currentUserInfo.avator }}" 
                                      class="circle responsive-img"
                                      style="cursor: pointer;" alt="">
                             </a>
