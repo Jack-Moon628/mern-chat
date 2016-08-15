@@ -104,7 +104,7 @@ io.on("connection", function(socket){
             }
             console.log(client.name + " disconnected.");
 
-            connectedUsers.splice(getIndex(connectedUsers, "name", client.name));
+            connectedUsers.splice(getIndex(connectedUsers, "name", client.name), 1);
 
             io.emit("message", bcMsg);
             io.emit("online user update", connectedUsers);
@@ -121,6 +121,7 @@ function getTime(){
 }
 
 function getIndex(arr, key, val){
+    if(arr.length == 0) return -1;
     for (var i = 0; i < arr.length; i++) {
         var e = arr[i];
         if(e[key] == val){
