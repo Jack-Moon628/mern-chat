@@ -2,9 +2,7 @@
 
 Chat application based on Node.js, Express & Socket.io 
 
-![Choose your name](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/choose_name.gif)
-
-![Chat](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/chat.gif)
+![Choose your name](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/start.gif)
 
 ## install
 
