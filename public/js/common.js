@@ -8,7 +8,15 @@ app.controller("appCtrl", function($scope){
 })
 
 app.controller("msgListCtrl", function($scope){
-    $scope.users = [];
+    $scope.users = [
+        {
+            name : "Choose",
+            action : "YOUR NAME",
+            actionObj : "First",
+            type : "SYSTEM",
+            status : "red-text"
+        }
+    ];
 });
 
 app.controller("userOnlineCtrl", function($scope){
