@@ -13,6 +13,10 @@ app.get("/", function(req, res){
     res.sendFile("index.html", { root : "./views" });
 });
 
+app.get("/t", function(req, res){
+    res.sendFile("index2.html", { root : "./views" });
+})
+
 app.get("/avator/", function(req, res){
     let avatorList = fs.readdirSync(app.get("public") + "/img/");
     res.send(avatorList);
