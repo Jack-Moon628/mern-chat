@@ -30,36 +30,34 @@
                         <!-- message list -->                        
                         <div style="height: 600px; overflow-y: auto; break-word:break-all;">
                             <ul id="msg-list" ng-controller="msgListCtrl">
-                                <li ng-repeat="user in users" ng-model="users">
+                                <li ng-repeat="user in users" ng-model="users" ng-switch="user.type">
                                     <div class="right-align" style="margin-bottom: 20px; margin-right: 10px;" ng-switch-when="CURRENT_USER">
                                         <span class="chip hoverable" style="cursor: pointer;">
-                                            <img src="img/8.png" alt="">
-                                            <span class="blue-text text-lighten-1">Hugo</span>
+                                            <img src="{{ currentUserInfo.avator }}" alt="">
+                                            <span class="blue-text text-lighten-1">{{user.name}}</span>
                                             <span class="red-text text-lighten-1">@</span>
-                                            <span class="green-text text-lighten-1">14:23:37</span>
+                                            <span class="green-text text-lighten-1">{{user.time}}</span>
                                         </span>
                                         <p class="grey-text text-darken-1" style="font-size: 1.64rem; line-height: 110%;margin: 0.82rem 0 0.656rem 0; font-weight: 300; margin-right: 10px;">
-                                            Hello!
+                                            {{user.msg}}
                                         </p>
                                     </div>
-                                </li>
-                                <li>
                                     <div style="margin-bottom: 20px; margin-left: 10px;" ng-switch-when="BROADCAST_USER">
                                         <span class="chip hoverable" style="cursor: pointer;">
-                                            <img src="img/7.png" alt="">
-                                            <span class="blue-text text-lighten-1">Bill Gates</span>
+                                            <img src="{{ user.avator }}" alt="">
+                                            <span class="blue-text text-lighten-1">{{user.name}}</span>
                                             <span class="red-text text-lighten-1">@</span>
-                                            <span class="green-text text-lighten-1">14:23:37</span>
+                                            <span class="green-text text-lighten-1">{{user.time}}</span>
                                         </span>
-                                        <p class="grey-text text-darken-1" style="font-size: 1.64rem; line-height: 110%;margin: 0.82rem 0 0.656rem 0; font-weight: 300; margin-left: 10px;">ARE YOU OK??!</p>
+                                        <p class="grey-text text-darken-1" style="font-size: 1.64rem; line-height: 110%;margin: 0.82rem 0 0.656rem 0; font-weight: 300; margin-left: 10px;">
+                                            {{user.msg}}
+                                        </p>
                                     </div>
-                                </li>
-                                <li>
                                     <div style="padding: 0px 40px 0px;" ng-switch-when="SYSTEM">
                                         <p class="center-align" style="padding: 3px 0;">
-                                            <span class="blue-text text-lighten-2">Steven</span>
-                                            <span class="green-text text-lighten-2">Enter </span>
-                                            <span class="indigo-text text-lighten-2">Chatroom</span>
+                                            <span class="blue-text text-lighten-2">{{user.name}} </span>
+                                            <span class="{{ user.status }} text-lighten-2">{{user.action}} </span>
+                                            <span class="indigo-text text-lighten-2">{{user.actionObj}}</span>
                                         </p>
                                     </div>
                                 </li>
@@ -95,7 +93,7 @@
                         <div class="row margin-bottom0" style="margin-top: 15px;">
                             <div class="col m3">
                                 <a href="#avatorList" class="modal-trigger">
-                                    <img src="img/8.png" class="circle" style="width: 45px;" alt="">
+                                    <img src="{{ currentUserInfo.avator }}" class="circle" style="width: 45px;" alt="">
                                 </a>
                             </div>
                             <div class="col m6" style="margin-top: 10px;">
@@ -119,36 +117,12 @@
                     <div class="z-depth-1 grey lighten-5" style="margin-top: 20px; padding: 5px 25px;" ng-controller="userOnlineCtrl">
                         <h5 class="font-weight300 grey-text text-darken-1">Who's online?</h5>
                         <div class="divider" style="margin-bottom: 15px;"></div>
-                        <div>
+                        <div ng-repeat="user in userOnlineList">
                             <span class="hoverable chip" style="margin-bottom: 13px; cursor: pointer;">
-                                <img src="img/5.png" alt="">
-                                <span class="blue-text text-lighten-1">Hugo</span>
+                                <img src="{{ user.avator }}" alt="">
+                                <span class="blue-text text-lighten-1">{{user.name}}</span>
                                 <span class="red-text text-lighten-1">@</span>
-                                <span class="green-text text-lighten-1">08:50:23</span>
-                            </span>
-                        </div>
-                        <div>
-                            <span class="hoverable chip" style="margin-bottom: 13px; cursor: pointer;">
-                                <img src="img/6.png" alt="">
-                                <span class="blue-text text-lighten-1">Steven Jobs</span>
-                                <span class="red-text text-lighten-1">@</span>
-                                <span class="green-text text-lighten-1">08:50:23</span>
-                            </span>
-                        </div>
-                        <div>
-                            <span class="hoverable chip" style="margin-bottom: 13px; cursor: pointer;">
-                                <img src="img/1.png" alt="">
-                                <span class="blue-text text-lighten-1">Ooho</span>
-                                <span class="red-text text-lighten-1">@</span>
-                                <span class="green-text text-lighten-1">08:50:23</span>
-                            </span>
-                        </div>
-                        <div>
-                            <span class="hoverable chip" style=" cursor: pointer;">
-                                <img src="img/2.png" alt="">
-                                <span class="blue-text text-lighten-1">Bill Gates</span>
-                                <span class="red-text text-lighten-1">@</span>
-                                <span class="green-text text-lighten-1">08:50:23</span>
+                                <span class="green-text text-lighten-1">{{user.time}}</span>
                             </span>
                         </div>
                         <div style="margin-bottom: 10px;">

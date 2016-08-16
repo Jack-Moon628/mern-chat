@@ -88,19 +88,26 @@ socket.on("online user update", function(res){
 })
 
 function sendMsg($inputElem){
+    // grab data from input value
     let msg = $inputElem.val();
+    // check data
     if(msg == "") return;
 
+    // get scope for using currentUserInfo
     let $sc = angular.element("[ng-controller=appCtrl]").scope();
     let currentUserInfo = $sc.currentUserInfo;
 
+    // contruct obj to transport to server
     let obj = {
         msg: msg,
         avator: currentUserInfo.avator 
     }
     socket.send(obj);
+
+    // set msg input to be ""
     $inputElem.val("");
 
+    // check currentUserInfo.name
     if(currentUserInfo.name == null){
         currentUserInfo.name = msg;
         $("#username").text(msg);
