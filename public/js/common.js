@@ -104,6 +104,7 @@ function sendMsg($inputElem){
     if(currentUserInfo.name == null){
         currentUserInfo.name = msg;
         $("#username").text(msg);
+        $("#profile-username").text(msg);
         $sc.$apply();
     }else{
         let newMsg = {
