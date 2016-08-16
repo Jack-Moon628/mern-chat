@@ -26,7 +26,11 @@ blockquote.primary {
 
 .margin-left40 { margin-left: 39px; }
 .margin-right40 { margin-right: 39px; }
+.margin-bottom0 { margin-bottom: 0px; }
+.margin-top20 { margin-top: 20px; }
 
 .font-weight300 { font-weight: 300; }
 
 .small-img { max-width: 80px; }
+
+.margin5 { margin: 0.5rem 0 1rem 0 };
