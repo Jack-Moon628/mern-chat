@@ -62,13 +62,12 @@ $("#msg-sendbtn").click(function(event){
 socket.on("message", function(msg){
     msgListAdd(msg);
 
+    // can not online if username already existed
     if(msg.repeat == 1){
         let $sc = angular.element("[ng-controller=appCtrl]").scope();
         let currentUserInfo = $sc.currentUserInfo;
 
         currentUserInfo.name = null;
-        $("#username").text("Your name:");
-
         $sc.$apply();
     }
 });
@@ -110,8 +109,6 @@ function sendMsg($inputElem){
     // check currentUserInfo.name
     if(currentUserInfo.name == null){
         currentUserInfo.name = msg;
-        $("#username").text(currentUserInfo.name);
-        $("#profile-username").text(currentUserInfo.name);
         $sc.$apply();
     }else{
         let newMsg = {
