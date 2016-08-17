@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chat</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/common.css">
+
+</head>
+
+<body id="body" ng-app="app" ng-controller="appCtrl">   
+    <div class="container">
+        <div class="container">
+            <header style="margin-bottom: 50px;">
+                <h3 class="thin">Socket.io Chat</h3>
+            </header>
+
+            <main>
+                <div class="row">
+                    <div class="col m8">
+                        <div id="msg-list-container" class="message-list" style="margin-bottom: 50px; height: 550px; overflow-y: auto; break-word:break-all;">
+                            <ul id="msg-list" ng-controller="msgListCtrl">
+                                <li ng-repeat="user in users" ng-model="users" ng-switch="user.type">
+                                    <div class="right-align" style="margin-bottom: 20px; margin-right: 20px;" ng-switch-when="CURRENT_USER">
+                                        <span class="chip hoverable" style="cursor: pointer;">
+                                            <img src="{{ currentUserInfo.avator }}" alt="">
+                                            <span class="blue-text text-lighten-1">{{user.name}}</span>
+                                            <span class="red-text text-lighten-1">@</span>
+                                            <span class="green-text text-lighten-1">{{user.time}}</span>
+                                        </span>
+                                        <p style="font-size: 1.64rem; line-height: 110%;margin: 0.82rem 0 0.656rem 0; font-weight: 300; margin-left: 39px;">{{user.msg}}</p>
+                                    </div>
+                                    <div style="margin-bottom: 20px; margin-right: 20px;" ng-switch-when="BROADCAST_USER">
+                                        <span class="chip hoverable" style="cursor: pointer;">
+                                            <img src="{{ user.avator }}" alt="">
+                                            <span class="blue-text text-lighten-1">{{user.name}}</span>
+                                            <span class="red-text text-lighten-1">@</span>
+                                            <span class="green-text text-lighten-1">{{user.time}}</span>
+                                        </span>
+                                        <p style="font-size: 1.64rem; line-height: 110%;margin: 0.82rem 0 0.656rem 0; font-weight: 300; margin-left: 39px;">{{user.msg}}</p>
+                                    </div>
+                                    <div style="padding: 0px 40px 0px;" ng-switch-when="SYSTEM">
+                                        <p class="center-align" style="padding: 3px 0;">
+                                            <span class="blue-text text-lighten-2">{{user.name}} </span>
+                                            <span class="{{ user.status }} text-lighten-2">{{user.action}} </span>
+                                            <span class="indigo-text text-lighten-2">{{user.actionObj}}</span>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="row">
+                            <div class="col m2 right-align" style="margin-top: 27px">
+                                <span id="username">Your name</span>:
+                            </div>
+                            <div class="col m7">
+                                <div class="input-field">
+                                    <input type="text" style="margin-left: 11px;" id="msg-input" autofocus autocomplete="off">
+                                    <label class="active" for="msg-input">Message</label>
+                                </div>
+                            </div>
+                            <div class="col m3" style="margin-top: 20px;">
+                                <a id="msg-sendbtn" class="waves-effect btn teal lighten-2"><i class="material-icons">done</i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col m4" style="padding: 0 30px;" ng-controller="userOnlineCtrl">
+                        <div>
+                            <p style="font-size: 1.3em; font-weight: 300;">Your avator</p>
+                            <a href="#avatorList" class="modal-trigger">
+                                <img ng-click="chooseAvator($event)" src="{{ currentUserInfo.avator }}" 
+                                     class="circle responsive-img"
+                                     style="cursor: pointer; width: 80px;" alt="">
+                            </a>
+                        </div>
+                        <div>
+                            <p style="font-size: 1.3em; font-weight: 300;">Who's online?</p>
+                            <div ng-repeat="user in userOnlineList">
+                                <span class="hoverable chip" style="margin-bottom: 10px; cursor: pointer;">
+                                    <img src="{{ user.avator }}" alt="">
+                                    <span class="blue-text text-lighten-1">{{user.name}}</span>
+                                    <span class="red-text text-lighten-1">@</span>
+                                    <span class="green-text text-lighten-1">{{user.time}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
+        });
+    </script>
+
+    <!-- modal space -->
+
+    <div class="modal" id="avatorList" ng-controller="avatorCtrl">
+        <div class="modal-content">
+            <h5 style="font-weight: 300;">Choose your avator</h5>
+            <br>
+            <div class="row">
+                <div class="col m1" style="margin: 5px 0;" ng-repeat="avator in avatorList">
+                    <img class="hoverable circle responsive-img modal-close" src="img/{{avator}}" alt=""
+                         style="cursor: pointer;" ng-click="selectAvator($event)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal space end -->
+    
+</body>
+</html>
