@@ -4,6 +4,11 @@ app.controller("appCtrl", function($scope){
     $scope.currentUserInfo = {
         name: null,
         avator: ""
+    };
+
+    $scope.offlineNotify = function(){
+        let elem = $("<span>Choose your <span class='blue-text text-lighten-2'>Name</span></span>");
+        Materialize.toast(elem, 3000);
     }
 })
 
