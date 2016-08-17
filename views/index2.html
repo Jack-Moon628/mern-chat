@@ -87,7 +87,7 @@
                     <!-- your profile -->
                     <div class="z-depth-1 grey lighten-5" style="margin-top: 5px; padding: 5px 25px;">
                         <div>
-                            <h5 class="font-weight300 grey-text text-darken-1">Your profile</h5>
+                            <h5 class="font-weight300 grey-text text-darken-1">Your profile {{currentUserInfo.username}}</h5>
                         </div>
                         <div class="divider"></div>
 
@@ -97,40 +97,23 @@
                                     <img src="{{ currentUserInfo.avator }}" class="circle" alt="">
                                 </a>
                             </div>
-                            <div class="col m6 s12">
+                            <div class="col m6 s12" ng-switch=" currentUserInfo.name || '_undefined_' ">
                                 <div style="padding-left: 10px; margin-top: 5px;">
                                     <span id="profile-username" class="grey-text text-darken-1">
                                         <span class="red-text text-lighten-1">Nameless</span>
                                     </span>
                                 </div>
-                                <div class="chip" style="margin-top: 10px;">
+                                <div class="chip" style="margin-top: 10px;" ng-switch-default>
                                     <span class="green-text font-weight300">Online</span>
                                     <i class="material-icons green-text text-lighten-1">done</i>
                                 </div>
+                                <div class="chip" style="margin-top: 10px;" ng-switch-when="_undefined_">
+                                    <span class="red-text font-weight300">Offline</span>
+                                    <i class="material-icons red-text text-lighten-1">loop</i>
+                                </div>
                             </div>
                         </div>
-
-                        <!--<div class="row margin-bottom0" style="margin-top: 15px;">
-                            <div class="col m3">
-                                <a href="#avatorList" class="modal-trigger">
-                                    <img src="{{ currentUserInfo.avator }}" class="circle" style="width: 45px;" alt="">
-                                </a>
-                            </div>
-                            <div class="col m6" style="margin-top: 10px;">
-                                <span id="profile-username" class="grey-text text-darken-1">
-                                    <span class="red-text text-lighten-1">NO NAME</span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="row" style="margin-top: 13px; margin-bottom: 10px;">
-                            <div class="col m3">
-                                <i class="material-icons green-text text-lighten-1" style="margin-left: 12px;width: 50px;">done</i>
-                            </div>
-                            <div class="col m8" style="margin-top: 2px;">
-                                <span class="grey-text text-darken-1">You have been <span class="green-text">online</span>.</span>
-                            </div>
-                        </div>-->
+                        
                     </div>
 
                     <!-- who's onlie -->
