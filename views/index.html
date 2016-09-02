@@ -136,8 +136,8 @@
                         <div class="divider" style="margin-bottom: 15px;"></div>
                         <div ng-repeat="user in userOnlineList" class="" style="margin-bottom: 13px;">
                             <span ng-hide="privateMode == 0">
-                                <input type="checkbox" id="test" name="" value="">
-                                <label style="padding-left: 20px;" for="test">&nbsp;</label>
+                                <input type="checkbox" id="{{user.name}}" name="" value="">
+                                <label style="padding-left: 20px;" for="{{user.name}}">&nbsp;</label>
                             </span>
                             <span class="hoverable chip" style=" cursor: pointer;">
                                 <img src="{{ user.avator }}" alt="">
