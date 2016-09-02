@@ -6,6 +6,8 @@ app.controller("appCtrl", function($scope){
         avator: ""
     };
 
+    $scope.privateMode = 0;
+
     $scope.offlineNotify = function(){
         let elem = $("<span>Choose your <span class='blue-text text-lighten-2'>Name</span></span>");
         Materialize.toast(elem, 3000);
