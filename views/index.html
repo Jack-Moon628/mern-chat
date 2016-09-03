@@ -29,7 +29,7 @@
                                     Private Mode
                                     <span class="switch">
                                         <label>
-                                            <input type="checkbox" ng-model="privateMode" ng-true-value="1" ng-false-value="0">
+                                            <input accesskey="p" type="checkbox" ng-model="privateMode" ng-true-value="1" ng-false-value="0">
                                             <span class="lever"></span>
                                         </label>
                                     </span>
@@ -107,7 +107,7 @@
                             </div>
                             <div class="col m8">
                                 <div class="input-field">
-                                    <input type="text" id="msg-input" autofocus autocomplete="off">
+                                    <input accesskey="i" type="text" id="msg-input" autofocus autocomplete="off">
                                     <label class="active" style="margin-left: -11px;" for="msg-input">Message</label>
                                 </div>
                             </div>
@@ -163,8 +163,8 @@
                         <div class="divider" style="margin-bottom: 15px;"></div>
                         <div ng-repeat="user in userOnlineList" class="" style="margin-bottom: 13px;">
                             <span ng-hide="privateMode == 0">
-                                <input type="checkbox" id="{{user.name}}" ng-model="user.isPrivateTgt" ng-true-value="true" ng-false-value="false">
-                                <label style="padding-left: 20px;" for="{{user.name}}">&nbsp;</label>
+                                <input accesskey="{{$index + 1}}" ng-disabled="currentUserInfo.name == user.name" type="checkbox" id="{{user.name}}" ng-model="user.isPrivateTgt" ng-true-value="true" ng-false-value="false">
+                                <label style="padding-left: 20px;" for="{{user.name}}">&nbsp;&nbsp;&nbsp;</label>
                             </span>
                             <span class="hoverable chip" style=" cursor: pointer;">
                                 <img src="{{ user.avator }}" alt="">
@@ -178,12 +178,6 @@
                         </div>
                     </div>
 
-                    <!--<div class="z-depth-1 grey lighten-5" style="margin-top: 20px; padding: 5px 25px;">
-                        <div>
-                            <h5 class="font-weight300 grey-text text-darken-1">Private Message</h5>
-                        </div>
-                        <div class="divider"></div>
-                    </div>-->
                 </div>
             </div>
 

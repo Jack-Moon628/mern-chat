@@ -96,7 +96,7 @@ io.on("connection", function(socket){
 
             if(obj.private == 1){
                 for (var i = 0; i < clientList.length; i++) {
-                    if(obj.target[i].isPrivateTgt == true){
+                    if(obj.target[i].hasOwnProperty("isPrivateTgt") == true && obj.target[i].isPrivateTgt == true){
                         let name = obj.target[i].name;
                         let index = getIndex(clientList, "name", name);
                         console.log(util.inspect(clientList[index], false, 1, true));
