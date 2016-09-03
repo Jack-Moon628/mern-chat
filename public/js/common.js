@@ -69,7 +69,7 @@ $("#msg-sendbtn").click(function(event){
 socket.on("message", function(msg){
     msgListAdd(msg);
 
-    // can not online if username already existed
+    // can not be online if username already existed
     if(msg.repeat == 1){
         let $sc = angular.element("[ng-controller=appCtrl]").scope();
         let currentUserInfo = $sc.currentUserInfo;
@@ -106,7 +106,18 @@ function sendMsg($inputElem){
     // contruct obj to transport to server
     let obj = {
         msg: msg,
-        avator: currentUserInfo.avator 
+        avator: currentUserInfo.avator,
+        private: angular.copy($sc.privateMode)
+    }
+
+    /**
+     * if private mode is enabled.
+     * send userlist who can get private msg to server.
+     */
+    if(obj.private == 1){
+        let $sc = angular.element("[ng-controller=userOnlineCtrl]").scope();
+        let target = $sc.userOnlineList;
+        obj = Object.assign(obj, { target: target });
     }
     socket.send(obj);
 
@@ -122,7 +133,7 @@ function sendMsg($inputElem){
             name : currentUserInfo.name,
             time : getTime(),
             msg : msg,
-            type : "CURRENT_USER",
+            type : $sc.privateMode == 1 ? "CURRENT_PRIVATE_USER" : "CURRENT_USER"
         }
         msgListAdd(newMsg);
     }

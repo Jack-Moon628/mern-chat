@@ -5,6 +5,7 @@ let app = express();
 let server = require("http").createServer(app);
 let io = require("socket.io")(server);
 let fs = require("fs");
+let util = require('util');
 
 
 app.use(express.static("public"));
@@ -22,6 +23,7 @@ app.get("/avator/", function(req, res){
 
 // connected/online users' list
 let connectedUsers = [];
+let clientList = [];
 
 io.on("connection", function(socket){
     console.log("user connected.");
@@ -49,6 +51,11 @@ io.on("connection", function(socket){
                     status : "green-text"
                 }
 
+                clientList.push({
+                    name: client.name,
+                    socket: client.socket
+                });
+
                 connectedUsers.push({
                     name: client.name,
                     avator: obj.avator,
@@ -75,14 +82,32 @@ io.on("connection", function(socket){
 
         }else{
             console.log(client.name + "'s message: " + obj.msg);
+            console.log(client.name + "'s private: " + (obj.private == 1));
+            if(obj.private == 1){
+                console.log("target: " + util.inspect(obj.target, true, null, true));
+            }
             let reMsg = {
                 name : client.name,
                 time : getTime(),
                 msg : obj.msg,
                 avator: obj.avator,
-                type : "BROADCAST_USER"
+                type : obj.private == 1 ? "PRIVATE_USER" : "BROADCAST_USER"
             }
-            socket.broadcast.emit("message", reMsg);
+
+            if(obj.private == 1){
+                for (var i = 0; i < clientList.length; i++) {
+                    if(obj.target[i].isPrivateTgt == true){
+                        let name = obj.target[i].name;
+                        let index = getIndex(clientList, "name", name);
+                        console.log(util.inspect(clientList[index], false, 1, true));
+                        clientList[index].socket.emit("message", reMsg);
+                    }
+                }
+                // console.log("connected users: " + util.inspect(clientList, false, 1, true));
+                // socket.broadcast.emit("message", reMsg);                
+            }else{
+                socket.broadcast.emit("message", reMsg);
+            }
         }
         
     });
