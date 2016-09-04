@@ -4,6 +4,16 @@ Chat application based on Node.js, Express & Socket.io
 
 ![Choose your name](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/start.gif)
 
+## new features
+
+private mode
+
+![private mode](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/privateMode.gif)
+
+keyboard shortcuts
+
+![shortcuts](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/shortcut.gif)
+
 ## install
 
 ```
