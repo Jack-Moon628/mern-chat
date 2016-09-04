@@ -53,7 +53,7 @@ io.on("connection", function(socket){
 
                 clientList.push({
                     name: client.name,
-                    socket: client.socket
+                    socket: socket
                 });
 
                 connectedUsers.push({
@@ -83,6 +83,11 @@ io.on("connection", function(socket){
         }else{
             console.log(client.name + "'s message: " + obj.msg);
             console.log(client.name + "'s private: " + (obj.private == 1));
+            // console.log(client.name + "'s connected: " + client.socket.connected);
+            // let tmp_index = getIndex(clientList, "name", client.name);
+            // console.log(client.name + " client socket: " + util.inspect(client.socket, true, 0, true));
+            // console.log(clientList[tmp_index].name + " clientList socket: " + util.inspect(clientList[tmp_index].socket, true, 0, true));
+            // console.log("if eq: " + client.socket == clientList[tmp_index].socket);
             if(obj.private == 1){
                 console.log("target: " + util.inspect(obj.target, true, null, true));
             }
@@ -95,12 +100,23 @@ io.on("connection", function(socket){
             }
 
             if(obj.private == 1){
-                for (var i = 0; i < obj.target.length; i++) {
-                    if(obj.target[i] && obj.target[i].hasOwnProperty("isPrivateTgt") == true && obj.target[i].isPrivateTgt == true){
-                        let name = obj.target[i].name;
-                        let index = getIndex(clientList, "name", name);
-                        console.log(util.inspect(clientList[index], false, 1, true));
-                        clientList[index].socket.emit("message", reMsg);
+                // for (let i = 0; i < obj.target.length; i++) {
+                //     if(obj.target[i] && obj.target[i].hasOwnProperty("isPrivateTgt") == true && obj.target[i].isPrivateTgt == true){
+                //         let name = obj.target[i].name;
+                //         let index = getIndex(clientList, "name", name);
+                //         console.log("private tgt: " + util.inspect(clientList[index], false, 1, true));
+                //         clientList[index].socket.emit("message", reMsg);
+                //     }
+                // }
+                for (let key in obj.target) {
+                    if (obj.target.hasOwnProperty(key)) {
+                        let elem = obj.target[key];
+                        if(elem.isPrivateTgt == true){
+                            let name = elem.name;
+                            let index = getIndex(clientList, "name", name);
+                            let res = clientList[index].socket.emit("message", reMsg);
+                            console.log(name + " res: " + util.inspect(res, true, 0, true));
+                        }
                     }
                 }
                 // console.log("connected users: " + util.inspect(clientList, false, 1, true));
