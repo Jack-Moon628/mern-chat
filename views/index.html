@@ -26,6 +26,7 @@
                             <h5 class="font-weight300 grey-text text-darken-1">
                                 Chat Room
                                 <small class="right">
+                                    <span ng-hide="showShortcut == 0" style="font-size: 80%; color: #bdbdbd;">alt+p &nbsp;</span>
                                     Private Mode
                                     <span class="switch">
                                         <label>
@@ -108,7 +109,10 @@
                             <div class="col m8">
                                 <div class="input-field">
                                     <input accesskey="i" type="text" id="msg-input" autofocus autocomplete="off">
-                                    <label class="active" style="margin-left: -11px;" for="msg-input">Message</label>
+                                    <label class="active" style="margin-left: -11px;" for="msg-input">
+                                        Message
+                                        <span ng-hide="showShortcut == 0" style="font-size: 80%; color: #bdbdbd;">&nbsp; alt+i</span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="col m2" style="margin-top: 20px;">
@@ -122,7 +126,13 @@
                     <!-- your profile -->
                     <div class="z-depth-1 grey lighten-5" style="margin-top: 5px; padding: 5px 25px;">
                         <div>
-                            <h5 class="font-weight300 grey-text text-darken-1">Your profile</h5>
+                            <h5 class="font-weight300 grey-text text-darken-1">
+                                Your profile
+                                <small class="right">
+                                    <span ng-hide="showShortcut == 0" style="vertical-align: top; font-size: 70%; color: #bdbdbd;">alt+s &nbsp;</span>
+                                    <i accesskey="s" class="material-icons" style="cursor: pointer;" ng-click="setting()">settings</i>
+                                </small>
+                            </h5>
                         </div>
                         <div class="divider"></div>
 
@@ -211,6 +221,51 @@
                 </div>
             </div>
         </div>
+
+            <!-- setting modal -->
+            <div class="modal" style="width: 20%;" id="settingModal">
+                <div class="modal-content">
+                    <h5 style="font-weight: 300;">Setting</h5>
+                    <br>
+                    <div class="row">
+                        <div class="switch">
+                            <label>
+                            Show Keyboard Shortcuts
+                            <input type="checkbox" accesskey="h" ng-model="showShortcut" ng-true-value="1" ng-false-value="0">
+                            <span class="lever"></span>
+                            </label>
+                        </div>
+                        <br>
+                        <table style="width: 70%; font-size: 0.8rem; color: #9e9e9e;">
+                            <tbody>
+                                <tr>
+                                    <td>alt + p</td>
+                                    <td>Private Mode</td>
+                                </tr>
+                                <tr>
+                                    <td>alt + i</td>
+                                    <td>Input Focus</td>
+                                </tr>
+                                <tr>
+                                    <td>alt + s</td>
+                                    <td>Setting</td>
+                                </tr>
+                                <tr>
+                                    <td>alt + h</td>
+                                    <td>Show shortcuts</td>
+                                </tr>
+                                <tr>
+                                    <td>alt + {number}</td>
+                                    <td>User select</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="modal-action modal-close waves-effect waves-green btn-flat" style="color: #9e9e9e;">Ok</a>
+                    </div>
+                </div>
+            </div>
 
         <!-- modal space end -->
     </body>

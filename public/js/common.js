@@ -7,10 +7,16 @@ app.controller("appCtrl", function($scope){
     };
 
     $scope.privateMode = 0;
+    $scope.showShortcut = 0;
 
     $scope.offlineNotify = function(){
         let elem = $("<span>Choose your <span class='blue-text text-lighten-2'>Name</span></span>");
         Materialize.toast(elem, 3000);
+    }
+
+    $scope.setting = function(){
+        console.log("setting clicked.");
+        $("#settingModal").openModal();
     }
 })
 
