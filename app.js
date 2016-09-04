@@ -29,9 +29,13 @@ io.on("connection", function(socket){
     console.log("user connected.");
 
     let client = {
-        socket : socket,
+        id : socket.id,
         name : null
     }
+
+    console.log("socket: " + util.inspect(socket, true, 0, true));
+    // console.log("client list: " + util.inspect(io.sockets.clients().sockets, true, 1, true));
+    // console.log("equal? " + (socket == io.sockets.clients().sockets[socket.id]));
 
     // send user list online
     socket.emit("msg userlist", connectedUsers);
@@ -53,7 +57,7 @@ io.on("connection", function(socket){
 
                 clientList.push({
                     name: client.name,
-                    socket: socket
+                    id: socket.id
                 });
 
                 connectedUsers.push({
@@ -114,8 +118,9 @@ io.on("connection", function(socket){
                         if(elem.isPrivateTgt == true){
                             let name = elem.name;
                             let index = getIndex(clientList, "name", name);
-                            let res = clientList[index].socket.emit("message", reMsg);
-                            console.log(name + " res: " + util.inspect(res, true, 0, true));
+                            let socketId = clientList[index].id;
+                            console.log("socketId: " + socketId);
+                            io.sockets.clients().sockets[socketId].emit("message", reMsg);
                         }
                     }
                 }
