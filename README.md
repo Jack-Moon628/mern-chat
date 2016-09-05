@@ -1,6 +1,10 @@
 # Chat
 
-Chat application based on Node.js, Express & Socket.io 
+## intro
+
+Chat application based on Node.js, Express, AngularJS & Socket.io  
+
+(BTW code is sucks.)
 
 ![Choose your name](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/start.gif)
 
