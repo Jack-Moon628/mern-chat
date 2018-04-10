@@ -2,7 +2,7 @@
 
 ## intro
 
-Chat application based on Node.js, Express, AngularJS & Socket.io  
+Chat App with Node.js, Express, AngularJS & Socket.io  
 
 ![Choose your name](https://raw.githubusercontent.com/HugHoo/Miscellaneous/master/Images/Chat/start.gif)
 
